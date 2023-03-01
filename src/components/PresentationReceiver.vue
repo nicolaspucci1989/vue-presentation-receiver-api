@@ -1,4 +1,6 @@
 <script setup>
+import { onMounted } from 'vue'
+
 let connectionIdx = 0
 let messageIdx = 0
 
@@ -62,7 +64,7 @@ function maybeSetFruit(message) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onMounted(() => {
   if (navigator.presentation.receiver) {
     navigator.presentation.receiver.connectionList.then((list) => {
       list.connections.map((connection) => addConnection(connection))
