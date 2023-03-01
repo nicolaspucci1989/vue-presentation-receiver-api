@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const presentationRequest = new PresentationRequest(['receiver/index.html'])
+const presentationRequest = new PresentationRequest(['receiver'])
 
 // Make this presentation the default one when using the "Cast" browser menu.
 navigator.presentation.defaultRequest = presentationRequest
