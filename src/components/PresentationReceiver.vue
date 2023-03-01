@@ -1,9 +1,9 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, reactive } from 'vue'
 
 let connectionIdx = 0
 let messageIdx = 0
-
+const messages = reactive([])
 function addConnection(connection) {
   connection.connectionId = ++connectionIdx
   addMessage('New connection #' + connectionIdx)
@@ -48,19 +48,14 @@ const fruitEmoji = {
   strawberry: '\u{1F353}'
 }
 
-function addMessage(content, language) {
-  const listItem = document.createElement('li')
-  if (language) {
-    listItem.lang = language
-  }
-  listItem.textContent = content
-  document.querySelector('#message-list').appendChild(listItem)
+function addMessage(content) {
+  messages.push({ content })
 }
 
 function maybeSetFruit(message) {
   const fruit = message.toLowerCase()
   if (fruit in fruitEmoji) {
-    document.querySelector('#main').textContent = fruitEmoji[fruit]
+    messages.push({ content: fruitEmoji[fruit] })
   }
 }
 
@@ -77,8 +72,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="main">Hello World</div>
-  <ul id="message-list"></ul>
+  <div id="">Hello World</div>
+  <ul id="message-list">
+    <li v-for="(msg, n) in messages" :key="n">{{ msg.content }}</li>
+  </ul>
 </template>
 
 <style scoped>
